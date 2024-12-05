@@ -1,63 +1,56 @@
+export enum PlayerClass {
+  Mage,
+  Archer,
+  Knight,
+}
+
 export abstract class Player {
-  private _name: string;
-  private _class: string;
-  private _health: number;
-  private _atk: number;
-  private _stunnedState: boolean = false;
+  protected _name: string;
+  protected _class: string;
+  protected _health: number;
+  protected _atk: number;
+  protected _stunnedState: boolean = false;
 
-  constructor(playerName: string, playerClass: string, playerHealth: number, playerAtk: number) {
+  constructor(playerName: string, role: string, playerHealth: number, playerAtk: number) {
     this._name = playerName;
-    this._class = playerClass;
-    this._health = playerHealth;
-    this._atk = playerAtk;
+    this._class = role;
+    this.health = playerHealth;
+    this.atk = playerAtk;
   }
 
-  attack(target) {
-    const damage = this._atk;
-    target.takeDamage(damage);
-    return `${this._name} атакует ${target} и наносит ${damage} урона.`;
-  }
-
-  takeDamage(damage: number) {
-    this._health -= damage;
-    if (this._health < 0) {
-      this._health = 0;
-    }
-  }
-
-  public setHealth(hp: number) {
+  protected set health(hp: number) {
     if (hp > 0 && hp <= 50) {
-      this._health = hp;
+      this.health = hp;
     } else {
       throw new Error('health is incorrect');
     }
   }
 
-  public setAtk(atk: number) {
+  protected set atk(atk: number) {
     if (atk > 0 && atk <= 25) {
-      this._atk = atk;
+      this.atk = atk;
     } else {
       throw new Error('attack is incorrect');
     }
   }
 
-  public getStunnedState(): boolean {
+  public get StunnedState(): boolean {
     return this._stunnedState;
   }
 
-  public getName(): string {
+  public get name(): string {
     return this._name;
   }
 
-  public getClass(): string {
-    return this._class;
+  public get class(): string {
+    return this.class;
   }
 
-  public getHealth(): number {
-    return this._health;
+  public get health(): number {
+    return this.health;
   }
 
-  public getAtk(): number {
-    return this._atk;
+  public get atk(): number {
+    return this.atk;
   }
 }

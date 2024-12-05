@@ -1,13 +1,10 @@
-import { Player } from './player';
+import { Player, PlayerClass } from './player';
 
 export class Mage extends Player {
-private _magicalResistance: number;
-  constructor(playerName: string, playerHealth: number, playerAtk: number, mageResistance: number) {
+  protected _atk = 5;
+  protected _health = 20;
+  protected classid = PlayerClass.Mage;
+  constructor(playerName: string, playerHealth: number, playerAtk: number) {
     super(playerName, 'Mage', playerHealth, playerAtk);
-    this._magicalResistance = mageResistance;
-  }
-
-  public getResistance(){
-    return this._magicalResistance;
   }
 }

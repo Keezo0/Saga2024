@@ -1,13 +1,21 @@
-import { Player } from './player';
+// import { Attack } from '../abilities/attack';
+// import { Abilitychance } from '../abilities/ability';
+// import { Strike } from '../abilities/Strike';
+
+import { Player, PlayerClass } from './player';
 
 export class Knight extends Player {
-  private _physicalResistance: number;
-  constructor(playerName: string, playerHealth: number, playerAtk: number, knightResistance: number) {
-    super(playerName, 'knight', playerHealth, playerAtk);
-    this._physicalResistance = knightResistance;
+  protected _atk = 7;
+  protected _health = 15;
+  protected classid = PlayerClass.Knight;
+  constructor(playerName: string, playerHealth: number, playerAtk: number) {
+    super(playerName, 'Knight', playerHealth, playerAtk);
   }
 
-  public getResistance() {
-    return this._physicalResistance;
-  }
+  // public attack(): Attack {
+  //   const atk = new Attack(this._atk, false);
+  //   if (Abilitychance(20) == true){
+  //     Strike.use(Knight, Player, atk)
+  //   }
+  // }
 }
