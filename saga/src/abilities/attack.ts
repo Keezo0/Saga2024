@@ -1,16 +1,21 @@
+import { Player } from '../players/player';
+
 export class Attack {
-  damage: number;
-  control: boolean = false;
-  constructor(damage: number, control: boolean) {
-    this.damage = damage;
-    this.control = control;
+  _damage: number;
+  _controll_apply: boolean;
+
+  constructor(player: Player, controlApply: boolean) {
+    this._damage = player.atk;
+    this._controll_apply = controlApply;
   }
 
-  public get Damage() {
-    return this.damage;
+  public get Damage(): number {
+    return this._damage;
   }
 
-  public get ControlState() {
-    return this.control;
+  public applyDamage(player: Player, hit: Attack): void {
+    if (player.health > 0) {
+      player.takeDmg(hit);
+    }
   }
 }

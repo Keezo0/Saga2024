@@ -2,20 +2,19 @@ import { Player } from '../players/player';
 
 import { Attack } from './attack';
 
-export enum abilitytype {
-  FireArrows,
-  Strike,
-  Enchantment,
-}
-
 export abstract class Ability {
-  protected abilityid: abilitytype;
-  protected usagetimes: number;
-  protected damage: number = 0;
+  protected _usagetimes: number;
+  protected _control: boolean;
+  protected _damage: number;
+
+  constructor(player: Player) {
+    this._damage = player.atk;
+    this._control = player.StunnedState;
+  }
 
   protected set Damage(dmg: number) {
     if (dmg > 0 && dmg <= 15) {
-      this.damage = dmg;
+      this._damage = dmg;
     } else {
       throw new Error('damage is incorrect');
     }
@@ -23,25 +22,21 @@ export abstract class Ability {
 
   protected set Usagetimes(time: number) {
     if (time === 0 || time === 1) {
-      this.usagetimes = time;
+      this._usagetimes = time;
     } else {
       throw new Error('attack is incorrect');
     }
   }
 
   public get Damage(): number {
-    return this.damage;
+    return this._damage;
   }
 
   public get Usagetimes() {
-    return this.usagetimes;
+    return this._usagetimes;
   }
 
-  public get Abilityid() {
-    return this.abilityid;
-  }
-
-  public abstract use(caster: Player, target: Player, hit: Attack): void;
+  protected abstract useAbility(hit: Attack, target: Player): void;
 }
 
 export function Abilitychance(chance: number): boolean {

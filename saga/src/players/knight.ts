@@ -1,21 +1,32 @@
-// import { Attack } from '../abilities/attack';
-// import { Abilitychance } from '../abilities/ability';
-// import { Strike } from '../abilities/Strike';
+import { Attack } from '../abilities/attack';
+import { Abilitychance } from '../abilities/ability';
+import { Strike } from '../abilities/Strike';
 
-import { Player, PlayerClass } from './player';
+import { Player } from './player';
 
 export class Knight extends Player {
-  protected _atk = 7;
-  protected _health = 15;
-  protected classid = PlayerClass.Knight;
+  protected _atk: number;
+  protected _health: number;
+
   constructor(playerName: string, playerHealth: number, playerAtk: number) {
     super(playerName, 'Knight', playerHealth, playerAtk);
   }
 
-  // public attack(): Attack {
-  //   const atk = new Attack(this._atk, false);
-  //   if (Abilitychance(20) == true){
-  //     Strike.use(Knight, Player, atk)
-  //   }
-  // }
+  public attack(): Attack {
+    const hit = new Attack(this, false);
+    if (Abilitychance(0.4) === true) {
+      const fireArrows = new Strike(this);
+      fireArrows.useAbility(hit, this);
+    }
+    return hit;
+  }
+
+  public takeDmg(taking_dmg: Attack) {
+    if (taking_dmg._controll_apply === true) {
+      this._stunnedState = true;
+      this._health = this._health - taking_dmg._damage;
+    } else {
+      this._health = this._health - taking_dmg._damage;
+    }
+  }
 }

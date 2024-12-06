@@ -1,19 +1,20 @@
 import { Player } from '../players/player';
 
-import { Ability, abilitytype } from './ability';
+import { Ability } from './ability';
 import { Attack } from './attack';
 
 export class Strike extends Ability {
-  protected damage = 15;
-  protected ability_id = abilitytype.Enchantment;
-  protected usagetime = 1;
+  protected _damage: number;
+  protected _usagetime = 1;
 
-  public use(caster: Player, target: Player, hit: Attack) {
-    caster.class === 'Knight';
-    target.StunnedState === false;
-    hit.damage === this.damage;
-    if ((this.Usagetimes = 1)) {
-      this.Usagetimes -= 1;
+  public useAbility(hit: Attack, target: Player): void {
+    if (this._usagetime === 1) {
+      const newDamage = Math.round(this._damage * 0.3) + this._damage;
+      const newHit = new Attack(target, true);
+      newHit._damage = newDamage;
+      hit.applyDamage(target, newHit);
+      target.takeDmg(newHit);
+      this._usagetime -= 1;
     }
   }
 }

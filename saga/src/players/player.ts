@@ -1,8 +1,4 @@
-export enum PlayerClass {
-  Mage,
-  Archer,
-  Knight,
-}
+import { Attack } from '../abilities/attack';
 
 export abstract class Player {
   protected _name: string;
@@ -14,13 +10,13 @@ export abstract class Player {
   constructor(playerName: string, role: string, playerHealth: number, playerAtk: number) {
     this._name = playerName;
     this._class = role;
-    this.health = playerHealth;
-    this.atk = playerAtk;
+    this._health = playerHealth;
+    this._atk = playerAtk;
   }
 
   protected set health(hp: number) {
     if (hp > 0 && hp <= 50) {
-      this.health = hp;
+      this._health = hp;
     } else {
       throw new Error('health is incorrect');
     }
@@ -28,11 +24,13 @@ export abstract class Player {
 
   protected set atk(atk: number) {
     if (atk > 0 && atk <= 25) {
-      this.atk = atk;
+      this._atk = atk;
     } else {
       throw new Error('attack is incorrect');
     }
   }
+
+  public abstract takeDmg(taking_dmg: Attack): void;
 
   public get StunnedState(): boolean {
     return this._stunnedState;
@@ -43,14 +41,14 @@ export abstract class Player {
   }
 
   public get class(): string {
-    return this.class;
+    return this._class;
   }
 
   public get health(): number {
-    return this.health;
+    return this._health;
   }
 
   public get atk(): number {
-    return this.atk;
+    return this._atk;
   }
 }
