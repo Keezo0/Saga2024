@@ -1,8 +1,15 @@
 import { Attack } from '../abilities/attack';
 
+export enum playerClasses {
+  Mage,
+  Archer,
+  Knight,
+}
+
 export abstract class Player {
   protected _name: string;
   protected _class: string;
+  protected _classid: playerClasses;
   protected _health: number;
   protected _atk: number;
   protected _stunnedState: boolean = false;
@@ -31,7 +38,7 @@ export abstract class Player {
   }
 
   public takeDmg(taking_dmg: Attack) {
-    if (taking_dmg._controll_apply === true) {
+    if (taking_dmg._control_apply === true) {
       this._stunnedState = true;
       this._health = this._health - taking_dmg._damage;
     } else {

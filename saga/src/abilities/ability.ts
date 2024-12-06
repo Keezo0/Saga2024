@@ -2,8 +2,15 @@ import { Player } from '../players/player';
 
 import { Attack } from './attack';
 
+export enum abilityClasses {
+  Enchantment,
+  FireArrows,
+  Strike,
+}
+
 export abstract class Ability {
   protected _usagetimes: number;
+  protected _abilityid: abilityClasses;
   protected _control: boolean;
   protected _damage: number;
 

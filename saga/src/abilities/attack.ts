@@ -2,11 +2,11 @@ import { Player } from '../players/player';
 
 export class Attack {
   _damage: number;
-  _controll_apply: boolean;
+  _control_apply: boolean;
 
   constructor(player: Player, controlApply: boolean) {
     this._damage = player.atk;
-    this._controll_apply = controlApply;
+    this._control_apply = controlApply;
   }
 
   public get Damage(): number {

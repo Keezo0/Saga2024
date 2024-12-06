@@ -1,10 +1,11 @@
 import { Player } from '../players/player';
 
-import { Ability } from './ability';
+import { Ability, abilityClasses } from './ability';
 import { Attack } from './attack';
 
 export class Strike extends Ability {
   protected _damage: number;
+  protected _abilityid = abilityClasses.Strike;
   protected _usagetime = 1;
 
   public useAbility(hit: Attack, target: Player): void {
