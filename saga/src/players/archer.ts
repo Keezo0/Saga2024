@@ -20,13 +20,4 @@ export class Archer extends Player {
     }
     return hit;
   }
-
-  public takeDmg(taking_dmg: Attack) {
-    if (taking_dmg._controll_apply === true) {
-      this._stunnedState = true;
-      this._health = this._health - taking_dmg._damage;
-    } else {
-      this._health = this._health - taking_dmg._damage;
-    }
-  }
 }
