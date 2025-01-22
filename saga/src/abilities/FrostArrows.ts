@@ -1,16 +1,15 @@
 import { Player } from '../players/player';
 import { Ability, abilityClasses } from './ability';
 
-export class Enchantment extends Ability {
+export class FireArrows extends Ability {
   protected _damage: number;
-  protected _abilityid = abilityClasses.Enchantment;
+  protected _abilityid = abilityClasses.FireArrows;
   protected _usagetime = 1;
-  
+
   public use(target: Player, caster: Player): void {
     if (this._usagetime === 1) {
-      const reducedDamage = Math.round(this._damage * 0.7);
-      target.useAbility(caster, this, reducedDamage);
-      this._control = true;
+      target.useAbility(caster, this, this.damage);
+      this._damage *= 2;
       this._usagetime -= 1;
     }
   }

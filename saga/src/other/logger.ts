@@ -1,5 +1,5 @@
 import { Ability, abilityClasses } from '../abilities/ability';
-import { Attack } from '../abilities/attack';
+import { Attack } from '../abilities/Attack';
 import { playerClasses } from '../players/player';
 
 abstract class Logger {

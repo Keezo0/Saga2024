@@ -1,5 +1,4 @@
 import { Abilitychance } from '../abilities/ability';
-import { Attack } from '../abilities/attack';
 import { FireArrows } from '../abilities/FireArrows';
 
 import { Player, playerClasses } from './player';
@@ -11,14 +10,5 @@ export class Archer extends Player {
 
   constructor(playerName: string, playerHealth: number, playerAtk: number) {
     super(playerName, 'Archer', playerHealth, playerAtk);
-  }
-
-  public attack(): Attack {
-    const hit = new Attack(this, false);
-    if (Abilitychance(0.4) === true) {
-      const fireArrows = new FireArrows(this);
-      fireArrows.useAbility(hit, this);
-    }
-    return hit;
   }
 }

@@ -1,4 +1,4 @@
-import { Attack } from '../abilities/attack';
+import { Ability } from "../abilities/ability";
 
 export enum playerClasses {
   Mage,
@@ -17,8 +17,12 @@ export abstract class Player {
   constructor(playerName: string, role: string, playerHealth: number, playerAtk: number) {
     this._name = playerName;
     this._class = role;
-    this._health = playerHealth;
-    this._atk = playerAtk;
+    this.health = playerHealth;
+    this.atk = playerAtk;
+  }
+
+  public useAbility(caster: Player, ability: Ability, damage: number) {
+    this.health = this.health - damage;
   }
 
   protected set health(hp: number) {
@@ -34,15 +38,6 @@ export abstract class Player {
       this._atk = atk;
     } else {
       throw new Error('attack is incorrect');
-    }
-  }
-
-  public takeDmg(taking_dmg: Attack) {
-    if (taking_dmg._control_apply === true) {
-      this._stunnedState = true;
-      this._health = this._health - taking_dmg._damage;
-    } else {
-      this._health = this._health - taking_dmg._damage;
     }
   }
 

@@ -1,8 +1,7 @@
 import { Player } from '../players/player';
 
-import { Attack } from './attack';
-
 export enum abilityClasses {
+  Attack,
   Enchantment,
   FireArrows,
   Strike,
@@ -15,11 +14,11 @@ export abstract class Ability {
   protected _damage: number;
 
   constructor(player: Player) {
-    this._damage = player.atk;
+    this.damage = player.atk;
     this._control = player.StunnedState;
   }
 
-  protected set Damage(dmg: number) {
+  protected set damage(dmg: number) {
     if (dmg > 0 && dmg <= 15) {
       this._damage = dmg;
     } else {
@@ -35,7 +34,7 @@ export abstract class Ability {
     }
   }
 
-  public get Damage(): number {
+  public get damage(): number {
     return this._damage;
   }
 
@@ -43,7 +42,7 @@ export abstract class Ability {
     return this._usagetimes;
   }
 
-  protected abstract useAbility(hit: Attack, target: Player): void;
+  protected abstract use(target: Player, caster: Player): void;
 }
 
 export function Abilitychance(chance: number): boolean {

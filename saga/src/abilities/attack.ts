@@ -1,21 +1,17 @@
 import { Player } from '../players/player';
+import { Ability, abilityClasses } from './ability';
 
-export class Attack {
-  _damage: number;
-  _control_apply: boolean;
+export class Attack extends Ability {
+  protected _damage: number;
+  protected _abilityid = abilityClasses.Attack;
+  protected _usagetime: number;
 
-  constructor(player: Player, controlApply: boolean) {
-    this._damage = player.atk;
-    this._control_apply = controlApply;
+  public use(target: Player, caster: Player): void {
+      this._damage = caster.atk;
+      target.useAbility(caster, this, this.damage);
   }
 
-  public get Damage(): number {
+  public get damage(): number {
     return this._damage;
-  }
-
-  public applyDamage(player: Player, hit: Attack): void {
-    if (player.health > 0) {
-      player.takeDmg(hit);
-    }
   }
 }
