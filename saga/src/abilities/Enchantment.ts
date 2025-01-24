@@ -1,4 +1,5 @@
 import { Player } from '../players/player';
+
 import { Ability, AbilityClasses } from './ability';
 
 export class Enchantment extends Ability {
@@ -11,7 +12,7 @@ export class Enchantment extends Ability {
   }
 
   public use(target: Player, caster: Player): void {
-    super.use(target, caster); // Вызываем метод use из родительского класса
+    super.use(target, caster);
     if (this.canUse()) {
       const reducedDamage = Math.round(this._damage * 0.7);
       target.useAbility(caster, this, reducedDamage);

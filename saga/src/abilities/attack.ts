@@ -1,4 +1,5 @@
 import { Player } from '../players/player';
+
 import { Ability, AbilityClasses } from './ability';
 
 export class Attack extends Ability {
@@ -11,7 +12,7 @@ export class Attack extends Ability {
   }
 
   public use(target: Player, caster: Player): void {
-    super.use(target, caster); // Вызываем метод use из родительского класса
+    super.use(target, caster);
     target.useAbility(caster, this, this.damage);
   }
 }

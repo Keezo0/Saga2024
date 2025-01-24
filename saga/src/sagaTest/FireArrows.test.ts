@@ -44,13 +44,6 @@ describe('FireArrows Ability', () => {
     fireArrows.use(mage, archer);
     fireArrows.applyBurnEffect();
 
-    expect(Logger.logBurnEffect).toHaveBeenCalledWith(
-      archer.classid,
-      archer.name,
-      mage.classid,
-      mage.name,
-      5,
-      70,
-    );
+    expect(Logger.logBurnEffect).toHaveBeenCalledWith(archer.classid, archer.name, mage.classid, mage.name, 5, 70);
   });
 });

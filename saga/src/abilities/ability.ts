@@ -13,7 +13,7 @@ export abstract class Ability {
   protected _abilityid: AbilityClasses;
   protected _control: boolean;
   protected _damage: number;
-  protected _usedThisTurn: boolean = false; // Новый флаг
+  protected _usedThisTurn: boolean = false;
 
   constructor(player: Player) {
     this._damage = player.atk;
@@ -45,13 +45,13 @@ export abstract class Ability {
     }
   }
   public resetTurn(): void {
-    this._usedThisTurn = false; // Сбрасываем флаг использования в начале хода
+    this._usedThisTurn = false;
   }
 
   public canUse(): boolean {
-    return this._usagetimes === 1 && !this._usedThisTurn; // Проверяем, можно ли использовать способность
+    return this._usagetimes === 1 && !this._usedThisTurn;
   }
-  
+
   public use(target: Player, caster: Player): void {
     if (this.canUse()) {
       this._usedThisTurn = true;

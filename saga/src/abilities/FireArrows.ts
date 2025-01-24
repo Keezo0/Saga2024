@@ -1,6 +1,7 @@
 import { Player } from '../players/player';
-import { Ability, AbilityClasses } from './ability';
 import { Logger } from '../other/logger';
+
+import { Ability, AbilityClasses } from './ability';
 
 export class FireArrows extends Ability {
   protected _damage: number;
@@ -15,7 +16,7 @@ export class FireArrows extends Ability {
   }
 
   public use(target: Player, caster: Player): void {
-    super.use(target, caster); // Вызываем метод use из родительского класса
+    super.use(target, caster);
     if (this.canUse()) {
       target.useAbility(caster, this, this._damage);
       Logger.logAbilityUse(caster.classid, caster.name, target.classid, target.name, this._damage);

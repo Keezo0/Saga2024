@@ -1,4 +1,5 @@
 import { FireArrows } from '../abilities/FireArrows';
+
 import { Player, PlayerClasses } from './player';
 
 export class Archer extends Player {
