@@ -20,9 +20,7 @@ describe('Game Logic', () => {
     const player2 = game['players'][1];
 
     player1['_health'] = 0;
-
     game['startGame']();
-
     expect(player1.health).toBe(0);
 
     if (player2.health > 0) {

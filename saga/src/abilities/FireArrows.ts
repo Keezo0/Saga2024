@@ -5,7 +5,9 @@ import { Logger } from '../other/logger';
 export class FireArrows extends Ability {
   protected _damage: number;
   protected _abilityid = AbilityClasses.FireArrows;
-  protected _usagetimes = 1;
+  private _burnTurns: number = 0;
+  private _burnTarget: Player | null = null;
+  private _burnCaster: Player | null = null;
 
   constructor(caster: Player) {
     super(caster);
@@ -13,34 +15,32 @@ export class FireArrows extends Ability {
   }
 
   public use(target: Player, caster: Player): void {
-    if (this._usagetimes === 1) {
+    super.use(target, caster); // Вызываем метод use из родительского класса
+    if (this.canUse()) {
       target.useAbility(caster, this, this._damage);
       Logger.logAbilityUse(caster.classid, caster.name, target.classid, target.name, this._damage);
 
-      // Применяем эффект "горения"
-      this.applyBurnEffect(target, caster);
-
-      this._usagetimes = 0;
-    } else {
-      console.log(`${caster.name} не может использовать "Огненные стрелы" в этом раунде.`);
+      this._burnTurns = 2;
+      this._burnTarget = target;
+      this._burnCaster = caster;
     }
   }
 
-  private applyBurnEffect(target: Player, caster: Player): void {
-    let burnTurns = 2;
-  
-    const burnInterval = setInterval(() => {
-      if (burnTurns > 0 && target.health > 0) {
-        const burnDamage = 5;
-        target.useAbility(caster, this, burnDamage);
-        Logger.logBurnEffect(caster.classid, caster.name, target.classid, target.name, burnDamage);
-  
-        burnTurns--;
-      } else {
-        clearInterval(burnInterval);
-      }
-    }, 1000);
+  public applyBurnEffect(): void {
+    if (this._burnTurns > 0 && this._burnTarget && this._burnCaster) {
+      const burnDamage = 5;
+      this._burnTarget.useAbility(this._burnCaster, this, burnDamage);
 
-    burnInterval.unref();
+      Logger.logBurnEffect(
+        this._burnCaster.classid,
+        this._burnCaster.name,
+        this._burnTarget.classid,
+        this._burnTarget.name,
+        burnDamage,
+        this._burnTarget.health,
+      );
+
+      this._burnTurns--;
+    }
   }
 }

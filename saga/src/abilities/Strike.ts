@@ -1,5 +1,4 @@
 import { Player } from '../players/player';
-
 import { Ability, AbilityClasses } from './ability';
 
 export class Strike extends Ability {
@@ -12,13 +11,11 @@ export class Strike extends Ability {
   }
 
   public use(target: Player, caster: Player): void {
-    if (this.usagetimes === 1) {
+    super.use(target, caster); // Вызываем метод use из родительского класса
+    if (this.canUse()) {
       const bonusDamage = Math.round(this._damage * 0.3);
       const totalDamage = this._damage + bonusDamage;
       target.useAbility(caster, this, totalDamage);
-      this.usagetimes = 0;
-    } else {
-      return;
     }
   }
 }

@@ -11,17 +11,14 @@ describe('FrostArrows Ability', () => {
     mage = new Mage('Gandalf', 100, 20);
   });
 
-  test('FrostArrows logs a message when used more than once per round', () => {
+  test('FrostArrows can only be used once per round', () => {
     const frostArrows = new FrostArrows(archer);
-    const consoleSpy = jest.spyOn(console, 'log');
+    frostArrows.use(mage, archer);
+    expect(frostArrows['_usagetime']).toBe(0);
 
     frostArrows.use(mage, archer);
-    frostArrows.use(mage, archer);
 
-    expect(consoleSpy).toHaveBeenCalledWith(
-      `${archer.name} не может использовать "Ледяные стрелы" в этом раунде.`
-    );
-
-    consoleSpy.mockRestore();
+    expect(mage.health).toBe(100 - archer.atk);
+    expect(frostArrows['_usagetime']).toBe(0);
   });
 });

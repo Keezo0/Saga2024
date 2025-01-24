@@ -37,11 +37,12 @@ export class Logger {
     targetClass: PlayerClasses,
     targetName: string,
     damage: number,
+    targetHealth: number,
   ): void {
     const casterClassName = this._classNames[casterClass];
     const targetClassName = this._classNames[targetClass];
     console.log(
-      `${targetClassName} ${targetName} получает ${damage} урона от эффекта "горения" после способности "${this._abilityNames[casterClass]}" от ${casterClassName} ${casterName}.`,
+      `${targetClassName} ${targetName} получает ${damage} урона от эффекта "горения" после способности "${this._abilityNames[casterClass]}" от ${casterClassName} ${casterName}. Текущее здоровье: ${targetHealth}.`,
     );
   }
 
@@ -49,5 +50,10 @@ export class Logger {
     const className = this._classNames[playerClass];
     console.log(`Создан новый игрок: ${className} ${playerName} с ${health} здоровья и ${atk} атаки.`);
     console.log('--------------------------');
+  }
+
+  public static logSkipTurn(playerClass: PlayerClasses, playerName: string): void {
+    const className = this._classNames[playerClass];
+    console.log(`${className} ${playerName} пропускает ход из-за оглушения.`);
   }
 }

@@ -10,9 +10,9 @@ export class Archer extends Player {
   }
 
   public useSpecialAbility(target: Player): void {
-    const fireArrowsAbility = this._abilities.find(ability => ability instanceof FireArrows);
-    if (fireArrowsAbility) {
-      fireArrowsAbility.use(target, this);
+    const ability = this._abilities.find(ability => ability instanceof FireArrows);
+    if (ability) {
+      ability.use(target, this);
     }
   }
 }

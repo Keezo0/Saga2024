@@ -1,11 +1,9 @@
 import { Player } from '../players/player';
-
 import { Ability, AbilityClasses } from './ability';
 
 export class Attack extends Ability {
   protected _damage: number;
   protected _abilityid = AbilityClasses.Attack;
-  protected _usagetime: number;
 
   constructor(caster: Player) {
     super(caster);
@@ -13,10 +11,7 @@ export class Attack extends Ability {
   }
 
   public use(target: Player, caster: Player): void {
+    super.use(target, caster); // Вызываем метод use из родительского класса
     target.useAbility(caster, this, this.damage);
-  }
-
-  public get damage(): number {
-    return this._damage;
   }
 }

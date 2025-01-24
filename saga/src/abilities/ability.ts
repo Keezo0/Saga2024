@@ -13,13 +13,14 @@ export abstract class Ability {
   protected _abilityid: AbilityClasses;
   protected _control: boolean;
   protected _damage: number;
+  protected _usedThisTurn: boolean = false; // Новый флаг
+
   constructor(player: Player) {
     this._damage = player.atk;
-    this._control = player.StunnedState;
+    this._control = player.stunnedState;
     this._usagetimes = 1;
   }
 
-  // Сеттер для урона
   protected set damage(dmg: number) {
     if (dmg > 0 && dmg <= 15) {
       this._damage = dmg;
@@ -43,6 +44,18 @@ export abstract class Ability {
       throw new Error('Usagetimes is incorrect. It must be 0 or 1.');
     }
   }
+  public resetTurn(): void {
+    this._usedThisTurn = false; // Сбрасываем флаг использования в начале хода
+  }
 
-  public abstract use(target: Player, caster: Player): void;
+  public canUse(): boolean {
+    return this._usagetimes === 1 && !this._usedThisTurn; // Проверяем, можно ли использовать способность
+  }
+  
+  public use(target: Player, caster: Player): void {
+    if (this.canUse()) {
+      this._usedThisTurn = true;
+      this._usagetimes = 0;
+    }
+  }
 }

@@ -1,4 +1,5 @@
 import { Ability } from '../abilities/ability';
+import { Logger } from '../other/logger';
 
 export enum PlayerClasses {
   Mage,
@@ -28,10 +29,9 @@ export abstract class Player {
 
   public abstract useSpecialAbility(target: Player): void;
 
-  // Пропуск хода, если игрок оглушен
   public skipTurn(): boolean {
     if (this._stunnedState) {
-      console.log(`${this.name} пропускает ход из-за оглушения.`);
+      Logger.logSkipTurn(this.classid, this.name);
       this._stunnedState = false;
       return true;
     }
@@ -68,9 +68,6 @@ export abstract class Player {
 
   public get classid(): PlayerClasses {
     return this._classid;
-  }
-  public get StunnedState(): boolean {
-    return this._stunnedState;
   }
 
   public get name(): string {
