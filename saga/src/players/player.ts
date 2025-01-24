@@ -23,7 +23,7 @@ export abstract class Player {
   }
 
   public useAbility(caster: Player, ability: Ability, damage: number) {
-    this.health = Math.max(0, this.health - damage);
+    this.health = Math.max(0, this.health - damage); // Применяем урон к здоровью
   }
 
   public abstract useSpecialAbility(target: Player): void;

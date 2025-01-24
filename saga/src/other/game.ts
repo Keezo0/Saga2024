@@ -41,10 +41,17 @@ export class Game {
 
       if (useSpecialAbility) {
         // Используем особую способность
-        const specialAbility = attacker.abilities.find(ability => ability.usagetimes === 1); // Используем геттер
+        const specialAbility = attacker.abilities.find(ability => ability.usagetimes === 1);
         if (specialAbility) {
-          specialAbility.use(defender, attacker); // Используем публичный метод use
-          Logger.logAbilityUse(attacker.classid, attacker.name, defender.classid, defender.name, defender.health);
+          const damage = specialAbility.damage;
+          specialAbility.use(defender, attacker);
+          Logger.logAbilityUse(attacker.classid, attacker.name, defender.classid, defender.name, damage);
+
+          // Проверяем, жив ли защитник после использования способности
+          if (defender.health <= 0) {
+            console.log(`${defender.name} побежден!`);
+            return; // Завершаем игру, если защитник побежден
+          }
         } else {
           console.log(`${attacker.name} не может использовать способность в этом раунде.`);
         }
@@ -53,18 +60,18 @@ export class Game {
         const damage = attacker.atk;
         defender.useAbility(attacker, new Attack(attacker), damage);
         Logger.logAttack(attacker.classid, attacker.name, defender.classid, defender.name, damage);
-      }
 
-      // Проверяем, жив ли защитник
-      if (defender.health <= 0) {
-        console.log(`${defender.name} побежден!`);
-        break;
+        // Проверяем, жив ли защитник после атаки
+        if (defender.health <= 0) {
+          console.log(`${defender.name} побежден!`);
+          return; // Завершаем игру, если защитник побежден
+        }
       }
 
       // Сбрасываем _usagetimes для всех способностей в конце раунда
       this.players.forEach(player => {
         player.abilities.forEach(ability => {
-          ability.usagetimes = 1; // Используем сеттер
+          ability.usagetimes = 1;
         });
       });
 
