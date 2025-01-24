@@ -19,7 +19,6 @@ export class FireArrows extends Ability {
     super.use(target, caster);
     if (usable) {
       target.useAbility(caster, this, this._damage);
-      Logger.logAbilityUse(caster.classid, caster.name, target.classid, target.name, this._damage);
       this._burnTurns = 2;
       this._burnTarget = target;
       this._burnCaster = caster;
