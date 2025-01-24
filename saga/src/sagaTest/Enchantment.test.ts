@@ -16,7 +16,7 @@ describe('Enchantment Ability', () => {
     enchantment.use(archer, mage);
 
     const reducedDamage = Math.round(mage.atk * 0.7);
-    expect(archer.health).toBe(80 - reducedDamage); // Проверяем урон
-    expect(archer.stunnedState).toBe(true); // Проверяем оглушение
+    expect(archer.health).toBe(80 - reducedDamage);
+    expect(archer.stunnedState).toBe(true);
   });
 });

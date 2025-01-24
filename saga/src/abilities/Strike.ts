@@ -1,5 +1,4 @@
 import { Player } from '../players/player';
-
 import { Ability, AbilityClasses } from './ability';
 
 export class Strike extends Ability {
@@ -15,9 +14,9 @@ export class Strike extends Ability {
     const usable: boolean = this.canUse();
     super.use(target, caster);
     if (usable) {
-      const bonusDamage = Math.round(this._damage * 0.3); // 30% от базового урона
-      const totalDamage = this._damage + bonusDamage; // Общий урон
-      target.useAbility(caster, this, totalDamage); // Применяем урон к цели
+      const bonusDamage = Math.round(this._damage * 0.3);
+      const totalDamage = this._damage + bonusDamage;
+      target.useAbility(caster, this, totalDamage);
     }
   }
 }
