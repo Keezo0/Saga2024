@@ -9,7 +9,7 @@ export class FireArrows extends Ability {
     if (this._usagetime === 1) {
       const reducedDamage = 0;
       target.useAbility(caster, this, reducedDamage);
-      this._damage *= 2;
+      this._damage += 2;
       this._usagetime -= 1;
     }
   }

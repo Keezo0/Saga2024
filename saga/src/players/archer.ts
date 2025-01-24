@@ -1,6 +1,3 @@
-import { Abilitychance } from '../abilities/ability';
-import { FireArrows } from '../abilities/FireArrows';
-
 import { Player, playerClasses } from './player';
 
 export class Archer extends Player {
@@ -9,6 +6,6 @@ export class Archer extends Player {
   protected _health: number;
 
   constructor(playerName: string, playerHealth: number, playerAtk: number) {
-    super(playerName, 'Archer', playerHealth, playerAtk);
+    super(playerName, playerHealth, playerAtk);
   }
 }

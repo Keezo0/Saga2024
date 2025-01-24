@@ -1,4 +1,4 @@
-import { Ability } from "../abilities/ability";
+import { Ability } from '../abilities/ability';
 
 export enum playerClasses {
   Mage,
@@ -7,31 +7,24 @@ export enum playerClasses {
 }
 
 export abstract class Player {
-  protected _name: string;
+  protected _abilities: Ability[] = [];
+  protected _name: string;  
   protected _class: string;
   protected _classid: playerClasses;
   protected _health: number;
   protected _atk: number;
   protected _stunnedState: boolean = false;
 
-  constructor(playerName: string, role: string, playerHealth: number, playerAtk: number) {
+  constructor(playerName: string, playerHealth: number, playerAtk: number) {
     this._name = playerName;
-    this._class = role;
-    this.health = playerHealth;
+    this._health = playerHealth;
     this.atk = playerAtk;
   }
 
   public useAbility(caster: Player, ability: Ability, damage: number) {
-    this.health = this.health - damage;
+    this._health = this.health - damage;
   }
 
-  protected set health(hp: number) {
-    if (hp > 0 && hp <= 50) {
-      this._health = hp;
-    } else {
-      throw new Error('health is incorrect');
-    }
-  }
 
   protected set atk(atk: number) {
     if (atk > 0 && atk <= 25) {
@@ -41,6 +34,9 @@ export abstract class Player {
     }
   }
 
+  public get classid(): playerClasses {
+    return this._classid;
+  }
   public get StunnedState(): boolean {
     return this._stunnedState;
   }

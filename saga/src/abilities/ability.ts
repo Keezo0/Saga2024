@@ -5,6 +5,7 @@ export enum abilityClasses {
   Enchantment,
   FireArrows,
   Strike,
+  FrostArrows,
 }
 
 export abstract class Ability {
@@ -14,7 +15,7 @@ export abstract class Ability {
   protected _damage: number;
 
   constructor(player: Player) {
-    this.damage = player.atk;
+    this._damage = player.atk;
     this._control = player.StunnedState;
   }
 
