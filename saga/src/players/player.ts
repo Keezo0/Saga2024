@@ -14,7 +14,7 @@ export abstract class Player {
   protected _health: number;
   protected _atk: number;
   protected _stunnedState: boolean = false;
-  protected _usedSpecialAbility: boolean = false; // Флаг для отслеживания использования способностей
+  protected _usedSpecialAbility: boolean = false;
 
   constructor(playerName: string, playerHealth: number, playerAtk: number) {
     this._name = playerName;
@@ -23,7 +23,7 @@ export abstract class Player {
   }
 
   public useAbility(caster: Player, ability: Ability, damage: number) {
-    this.health = Math.max(0, this.health - damage); // Применяем урон к здоровью
+    this.health = Math.max(0, this.health - damage);
   }
 
   public abstract useSpecialAbility(target: Player): void;
@@ -32,28 +32,24 @@ export abstract class Player {
   public skipTurn(): boolean {
     if (this._stunnedState) {
       console.log(`${this.name} пропускает ход из-за оглушения.`);
-      this._stunnedState = false; // Сбрасываем флаг после пропуска хода
+      this._stunnedState = false;
       return true;
     }
     return false;
   }
 
-  // Установка состояния оглушения
   public setStunnedState(stunned: boolean): void {
     this._stunnedState = stunned;
   }
 
-  // Установка флага использования способности
   public setUsedSpecialAbility(used: boolean): void {
     this._usedSpecialAbility = used;
   }
 
-  // Проверка, использовалась ли способность в текущем раунде
   public hasUsedSpecialAbility(): boolean {
     return this._usedSpecialAbility;
   }
 
-  // Геттеры и сеттеры
   public get stunnedState(): boolean {
     return this._stunnedState;
   }

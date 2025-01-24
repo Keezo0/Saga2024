@@ -1,6 +1,6 @@
-import { Strike } from "../abilities/Strike";
-import { Knight } from "../players/knight";
-import { Mage } from "../players/mage";
+import { Strike } from '../abilities/Strike';
+import { Knight } from '../players/knight';
+import { Mage } from '../players/mage';
 
 describe('Strike Ability', () => {
   let knight: Knight;
@@ -15,17 +15,15 @@ describe('Strike Ability', () => {
     const strike = new Strike(knight);
     strike.use(mage, knight);
 
-    // Рассчитываем бонусный урон
     const bonusDamage = Math.round(knight.atk * 0.3);
     const totalDamage = knight.atk + bonusDamage;
 
-    // Проверяем общий урон
     expect(mage.health).toBe(100 - totalDamage);
   });
 
   test('Strike can only be used once per round', () => {
     const strike = new Strike(knight);
-    strike.use(mage, knight); // Используем способность
-    expect(strike.usagetimes).toBe(0); // Проверяем, что способность использована
+    strike.use(mage, knight);
+    expect(strike.usagetimes).toBe(0);
   });
 });

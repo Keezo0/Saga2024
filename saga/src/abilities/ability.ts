@@ -9,15 +9,14 @@ export enum AbilityClasses {
 }
 
 export abstract class Ability {
-  protected _usagetimes: number; // Количество использований способности
-  protected _abilityid: AbilityClasses; // Идентификатор способности
-  protected _control: boolean; // Контрольное состояние (например, оглушение)
-  protected _damage: number; // Урон способности
-
+  protected _usagetimes: number;
+  protected _abilityid: AbilityClasses;
+  protected _control: boolean;
+  protected _damage: number;
   constructor(player: Player) {
-    this._damage = player.atk; // Урон равен атаке игрока
-    this._control = player.StunnedState; // Контрольное состояние
-    this._usagetimes = 1; // Инициализация количества использований (1 раз за раунд)
+    this._damage = player.atk;
+    this._control = player.StunnedState;
+    this._usagetimes = 1;
   }
 
   // Сеттер для урона
@@ -29,17 +28,14 @@ export abstract class Ability {
     }
   }
 
-  // Геттер для урона
   public get damage(): number {
     return this._damage;
   }
 
-  // Геттер для количества использований
   public get usagetimes(): number {
     return this._usagetimes;
   }
 
-  // Сеттер для количества использований
   public set usagetimes(value: number) {
     if (value === 0 || value === 1) {
       this._usagetimes = value;
@@ -48,6 +44,5 @@ export abstract class Ability {
     }
   }
 
-  // Абстрактный метод для использования способности
   public abstract use(target: Player, caster: Player): void;
 }

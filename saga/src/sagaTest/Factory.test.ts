@@ -1,6 +1,5 @@
-
-import { PlayerGen } from "../other/Factory";
-import { PlayerClasses } from "../players/player";
+import { PlayerGen } from '../other/Factory';
+import { PlayerClasses } from '../players/player';
 
 describe('Player Factory', () => {
   test('Generate random player', () => {

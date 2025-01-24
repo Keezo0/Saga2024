@@ -1,4 +1,5 @@
 import { Player } from '../players/player';
+
 import { Ability, AbilityClasses } from './ability';
 
 export class Strike extends Ability {
@@ -15,9 +16,9 @@ export class Strike extends Ability {
       const bonusDamage = Math.round(this._damage * 0.3);
       const totalDamage = this._damage + bonusDamage;
       target.useAbility(caster, this, totalDamage);
-      this.usagetimes = 0; // Способность использована
+      this.usagetimes = 0;
     } else {
-      console.log(`${caster.name} не может использовать "Удар возмездия" в этом раунде.`);
+      return;
     }
   }
 }

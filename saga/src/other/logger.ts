@@ -31,6 +31,20 @@ export class Logger {
     );
   }
 
+  public static logBurnEffect(
+    casterClass: PlayerClasses,
+    casterName: string,
+    targetClass: PlayerClasses,
+    targetName: string,
+    damage: number,
+  ): void {
+    const casterClassName = this._classNames[casterClass];
+    const targetClassName = this._classNames[targetClass];
+    console.log(
+      `${targetClassName} ${targetName} получает ${damage} урона от эффекта "горения" после способности "${this._abilityNames[casterClass]}" от ${casterClassName} ${casterName}.`,
+    );
+  }
+
   public static logPlayerCreation(playerClass: PlayerClasses, playerName: string, health: number, atk: number): void {
     const className = this._classNames[playerClass];
     console.log(`Создан новый игрок: ${className} ${playerName} с ${health} здоровья и ${atk} атаки.`);

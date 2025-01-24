@@ -11,7 +11,6 @@ export abstract class PlayerGen {
     const randomAtk = Math.floor(Math.random() * (25 - 15 + 1)) + 15;
     const randomClassId = Math.floor(Math.random() * 3);
 
-    // Создаем экземпляр игрока в зависимости от выбранного класса
     switch (randomClassId) {
       case PlayerClasses.Mage:
         return new Mage(randomName, randomHealth, randomAtk);

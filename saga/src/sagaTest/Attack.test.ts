@@ -1,6 +1,6 @@
-import { Attack } from "../abilities/attack";
-import { Archer } from "../players/archer";
-import { Mage } from "../players/mage";
+import { Attack } from '../abilities/attack';
+import { Archer } from '../players/archer';
+import { Mage } from '../players/mage';
 
 describe('Attack Ability', () => {
   let mage: Mage;
@@ -14,6 +14,6 @@ describe('Attack Ability', () => {
   test('Attack deals damage to target', () => {
     const attack = new Attack(mage);
     attack.use(archer, mage);
-    expect(archer.health).toBe(80 - mage.atk); // Проверяем, что урон нанесен
+    expect(archer.health).toBe(80 - mage.atk);
   });
 });

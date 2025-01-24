@@ -15,10 +15,10 @@ export class Enchantment extends Ability {
     if (this.usagetimes === 1) {
       const reducedDamage = Math.round(this._damage * 0.7);
       target.useAbility(caster, this, reducedDamage);
-      target.setStunnedState(true); // Оглушаем цель
-      this.usagetimes = 0; // Способность использована
+      target.setStunnedState(true);
+      this.usagetimes = 0;
     } else {
-      console.log(`${caster.name} не может использовать "Зачарование" в этом раунде.`);
+      return;
     }
   }
 }

@@ -12,27 +12,23 @@ describe('Game Logic', () => {
   });
 
   test('Game initializes with two players', () => {
-    expect(game['players'].length).toBe(2); // Проверяем, что создано два игрока
+    expect(game['players'].length).toBe(2);
   });
 
   test('Game ends when a player is defeated', () => {
     const player1 = game['players'][0];
     const player2 = game['players'][1];
 
-    // Наносим урон, чтобы здоровье одного из игроков опустилось до 0
-    player1['_health'] = 0; // Используем защищенное свойство через доступ к внутренностям
+    player1['_health'] = 0;
 
-    // Запускаем игру
     game['startGame']();
 
-    // Проверяем, что игра завершилась
-    expect(player1.health).toBe(0); // Используем геттер
+    expect(player1.health).toBe(0);
 
-    // Проверяем, что либо player2 жив, либо оба игрока побеждены
     if (player2.health > 0) {
-      expect(player2.health).toBeGreaterThan(0); // Используем геттер
+      expect(player2.health).toBeGreaterThan(0);
     } else {
-      expect(player2.health).toBe(0); // Если оба игрока побеждены
+      expect(player2.health).toBe(0);
     }
   });
 });
