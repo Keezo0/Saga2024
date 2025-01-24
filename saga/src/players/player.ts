@@ -14,6 +14,7 @@ export abstract class Player {
   protected _health: number;
   protected _atk: number;
   protected _stunnedState: boolean = false;
+  protected _usedSpecialAbility: boolean = false; // Флаг для отслеживания использования способностей
 
   constructor(playerName: string, playerHealth: number, playerAtk: number) {
     this._name = playerName;
@@ -22,7 +23,7 @@ export abstract class Player {
   }
 
   public useAbility(caster: Player, ability: Ability, damage: number) {
-    this.health = Math.max(0, this.health - damage); // Убедимся, что здоровье не станет отрицательным
+    this.health = Math.max(0, this.health - damage);
   }
 
   public abstract useSpecialAbility(target: Player): void;
@@ -42,6 +43,16 @@ export abstract class Player {
     this._stunnedState = stunned;
   }
 
+  // Установка флага использования способности
+  public setUsedSpecialAbility(used: boolean): void {
+    this._usedSpecialAbility = used;
+  }
+
+  // Проверка, использовалась ли способность в текущем раунде
+  public hasUsedSpecialAbility(): boolean {
+    return this._usedSpecialAbility;
+  }
+
   // Геттеры и сеттеры
   public get stunnedState(): boolean {
     return this._stunnedState;
@@ -52,7 +63,11 @@ export abstract class Player {
   }
 
   protected set health(hp: number) {
-    this._health = Math.max(0, hp); // Убедимся, что здоровье не станет отрицательным
+    this._health = Math.max(0, hp);
+  }
+  
+  public get abilities(): Ability[] {
+    return this._abilities;
   }
 
   public get classid(): playerClasses {

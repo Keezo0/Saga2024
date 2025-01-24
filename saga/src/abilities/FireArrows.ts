@@ -4,14 +4,19 @@ import { Ability, abilityClasses } from './ability';
 export class FireArrows extends Ability {
   protected _damage: number;
   protected _abilityid = abilityClasses.FireArrows;
-  protected _usagetime = 1;
+  protected _usagetime = 1; // Использование ограничено 1 раз за раунд
+
+  constructor(caster: Player) {
+    super(caster);
+    this._damage = caster.atk;
+  }
 
   public use(target: Player, caster: Player): void {
-    if (this._usagetime === 1) {
-      this._damage = 0;
+    if (this._usagetime === 1) { // Проверяем, доступна ли способность
       target.useAbility(caster, this, this._damage);
-      this._damage = caster.atk+2;
-      this._usagetime -= 1;
+      this._usagetime = 0; // Способность использована, блокируем до конца раунда
+    } else {
+      console.log(`${caster.name} не может использовать "Огненные стрелы" в этом раунде.`);
     }
   }
 }

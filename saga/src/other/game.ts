@@ -40,8 +40,13 @@ export class Game {
 
       if (useSpecialAbility) {
         // Используем особую способность
-        attacker.useSpecialAbility(defender);
-        Logger.logAbilityUse(attacker.classid, attacker.name, defender.classid, defender.name, defender.health);
+        const specialAbility = attacker.abilities.find(ability => ability.usagetimes === 1); // Используем геттер
+        if (specialAbility) {
+          specialAbility.use(defender, attacker); // Используем публичный метод use
+          Logger.logAbilityUse(attacker.classid, attacker.name, defender.classid, defender.name, defender.health);
+        } else {
+          console.log(`${attacker.name} не может использовать способность в этом раунде.`);
+        }
       } else {
         // Используем обычную атаку
         const damage = attacker.atk;
@@ -54,6 +59,13 @@ export class Game {
         console.log(`${defender.name} побежден!`);
         break;
       }
+
+      // Сбрасываем _usagetimes для всех способностей в конце раунда
+      this.players.forEach(player => {
+        player.abilities.forEach(ability => {
+          ability.usagetimes = 1; // Используем сеттер
+        });
+      });
 
       // Меняем местами атакующего и защитника
       this.players.reverse();

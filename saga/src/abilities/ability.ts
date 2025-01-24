@@ -43,14 +43,15 @@ export abstract class Ability {
     return this._usagetimes;
   }
 
-  protected abstract use(target: Player, caster: Player): void;
-}
-
-export function Abilitychance(chance: number): boolean {
-  const randomValue = Math.random();
-  if (randomValue <= chance) {
-    return true;
-  } else {
-    return false;
+  // Геттер для _usagetimes
+  public get usagetimes(): number {
+    return this._usagetimes;
   }
+
+  // Сеттер для _usagetimes
+  public set usagetimes(value: number) {
+    this._usagetimes = value;
+  }
+
+  public abstract use(target: Player, caster: Player): void;
 }

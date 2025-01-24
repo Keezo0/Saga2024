@@ -20,5 +20,6 @@ export class Logger {
   public static logPlayerCreation(playerClass: playerClasses, playerName: string, health: number, atk: number): void {
     const className = this._classNames[playerClass];
     console.log(`Создан новый игрок: ${className} ${playerName} с ${health} здоровья и ${atk} атаки.`);
+    console.log('--------------------------')
   }
 }
