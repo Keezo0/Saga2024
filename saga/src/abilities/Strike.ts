@@ -1,9 +1,10 @@
 import { Player } from '../players/player';
-import { Ability, abilityClasses } from './ability';
+
+import { Ability, AbilityClasses } from './ability';
 
 export class Strike extends Ability {
   protected _damage: number;
-  protected _abilityid = abilityClasses.Strike;
+  protected _abilityid = AbilityClasses.Strike;
   protected _usagetime = 1; // Использование ограничено 1 раз за раунд
 
   constructor(caster: Player) {
@@ -12,7 +13,8 @@ export class Strike extends Ability {
   }
 
   public use(target: Player, caster: Player): void {
-    if (this._usagetime === 1) { // Проверяем, доступна ли способность
+    if (this._usagetime === 1) {
+      // Проверяем, доступна ли способность
       const bonusDamage = Math.round(this._damage * 0.3);
       const totalDamage = this._damage + bonusDamage;
       target.useAbility(caster, this, totalDamage);

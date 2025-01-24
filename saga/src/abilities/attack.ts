@@ -1,9 +1,10 @@
 import { Player } from '../players/player';
-import { Ability, abilityClasses } from './ability';
+
+import { Ability, AbilityClasses } from './ability';
 
 export class Attack extends Ability {
   protected _damage: number;
-  protected _abilityid = abilityClasses.Attack;
+  protected _abilityid = AbilityClasses.Attack;
   protected _usagetime: number;
 
   constructor(caster: Player) {

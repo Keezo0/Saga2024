@@ -1,6 +1,6 @@
 import { Ability } from '../abilities/ability';
 
-export enum playerClasses {
+export enum PlayerClasses {
   Mage,
   Archer,
   Knight,
@@ -10,7 +10,7 @@ export abstract class Player {
   protected _abilities: Ability[] = [];
   protected _name: string;
   protected _class: string;
-  protected _classid: playerClasses;
+  protected _classid: PlayerClasses;
   protected _health: number;
   protected _atk: number;
   protected _stunnedState: boolean = false;
@@ -65,12 +65,12 @@ export abstract class Player {
   protected set health(hp: number) {
     this._health = Math.max(0, hp);
   }
-  
+
   public get abilities(): Ability[] {
     return this._abilities;
   }
 
-  public get classid(): playerClasses {
+  public get classid(): PlayerClasses {
     return this._classid;
   }
   public get StunnedState(): boolean {

@@ -1,11 +1,12 @@
 import { Enchantment } from '../abilities/Enchantment';
-import { Player, playerClasses } from './player';
+
+import { Player, PlayerClasses } from './player';
 
 export class Mage extends Player {
   constructor(playerName: string, playerHealth: number, playerAtk: number) {
     super(playerName, playerHealth, playerAtk);
-    this._classid = playerClasses.Mage;
-    this._class = "Маг";
+    this._classid = PlayerClasses.Mage;
+    this._class = 'Маг';
     this._abilities.push(new Enchantment(this));
   }
 

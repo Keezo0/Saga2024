@@ -1,7 +1,8 @@
-import { Player, playerClasses } from '../players/player';
+import { Player } from '../players/player';
+import { Attack } from '../abilities/attack';
+
 import { PlayerGen } from './Factory';
 import { Logger } from './logger';
-import { Attack } from '../abilities/attack';
 
 export class Game {
   private players: Player[] = [];
@@ -74,4 +75,4 @@ export class Game {
 }
 
 // Пример использования
-const game = new Game();
+new Game();

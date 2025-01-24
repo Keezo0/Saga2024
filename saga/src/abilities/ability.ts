@@ -1,6 +1,6 @@
 import { Player } from '../players/player';
 
-export enum abilityClasses {
+export enum AbilityClasses {
   Attack,
   Enchantment,
   FireArrows,
@@ -10,7 +10,7 @@ export enum abilityClasses {
 
 export abstract class Ability {
   protected _usagetimes: number;
-  protected _abilityid: abilityClasses;
+  protected _abilityid: AbilityClasses;
   protected _control: boolean;
   protected _damage: number;
 

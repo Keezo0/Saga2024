@@ -1,7 +1,7 @@
-import { Archer } from "../players/archer";
-import { Knight } from "../players/knight";
-import { Mage } from "../players/mage";
-import { Player, playerClasses } from "../players/player";
+import { Archer } from '../players/archer';
+import { Knight } from '../players/knight';
+import { Mage } from '../players/mage';
+import { Player, PlayerClasses } from '../players/player';
 
 export abstract class PlayerGen {
   public static generateRandomPlayer(): Player {
@@ -13,14 +13,14 @@ export abstract class PlayerGen {
 
     // Создаем экземпляр игрока в зависимости от выбранного класса
     switch (randomClassId) {
-      case playerClasses.Mage:
+      case PlayerClasses.Mage:
         return new Mage(randomName, randomHealth, randomAtk);
-      case playerClasses.Archer:
+      case PlayerClasses.Archer:
         return new Archer(randomName, randomHealth, randomAtk);
-      case playerClasses.Knight:
+      case PlayerClasses.Knight:
         return new Knight(randomName, randomHealth, randomAtk);
       default:
-        throw new Error("Неизвестный класс игрока");
+        throw new Error('Неизвестный класс игрока');
     }
   }
 }
