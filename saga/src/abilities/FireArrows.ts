@@ -1,7 +1,6 @@
 import { Player } from '../players/player';
-import { Logger } from '../other/logger';
-
 import { Ability, AbilityClasses } from './ability';
+import { Logger } from '../other/logger';
 
 export class FireArrows extends Ability {
   protected _damage: number;
@@ -19,7 +18,7 @@ export class FireArrows extends Ability {
     const usable: boolean = this.canUse();
     super.use(target, caster);
     if (usable) {
-      target.useAbility(caster, this, this._damage); // Наносим начальный урон
+      target.useAbility(caster, this, this._damage);
       Logger.logAbilityUse(caster.classid, caster.name, target.classid, target.name, this._damage);
       this._burnTurns = 2;
       this._burnTarget = target;

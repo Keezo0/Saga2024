@@ -1,5 +1,4 @@
 import { Player } from '../players/player';
-
 import { Ability, AbilityClasses } from './ability';
 
 export class Enchantment extends Ability {
@@ -15,9 +14,9 @@ export class Enchantment extends Ability {
     const usable: boolean = this.canUse();
     super.use(target, caster);
     if (usable) {
-      const reducedDamage = Math.round(this._damage * 0.7); // Уменьшенный урон
-      target.useAbility(caster, this, reducedDamage); // Применяем урон
-      target.setStunnedState(true); // Оглушаем цель
+      const reducedDamage = Math.round(this._damage * 0.7);
+      target.useAbility(caster, this, reducedDamage);
+      target.setStunnedState(true);
     }
   }
 }

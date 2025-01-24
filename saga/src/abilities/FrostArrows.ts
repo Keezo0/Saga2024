@@ -1,11 +1,10 @@
 import { Player } from '../players/player';
-
 import { Ability, AbilityClasses } from './ability';
 
 export class FrostArrows extends Ability {
   protected _damage: number;
   protected _abilityid = AbilityClasses.FrostArrows;
-  protected _usagetime: number = 1; // Поле для отслеживания использования
+  protected _usagetime: number = 1;
 
   constructor(caster: Player) {
     super(caster);
@@ -16,8 +15,8 @@ export class FrostArrows extends Ability {
     const usable: boolean = this.canUse();
     super.use(target, caster);
     if (usable) {
-      target.useAbility(caster, this, this._damage); // Наносим урон
-      target.setStunnedState(true); // Оглушаем цель
+      target.useAbility(caster, this, this._damage);
+      target.setStunnedState(true);
       this._usagetime = 0;
     }
   }
