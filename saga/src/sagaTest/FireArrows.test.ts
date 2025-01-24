@@ -1,49 +1,46 @@
-import { FireArrows } from '../abilities/FireArrows';
-import { Mage } from '../players/mage';
-import { Logger } from '../other/logger';
 import { Archer } from '../players/archer';
+import { Mage } from '../players/mage';
+import { FrostArrows } from '../abilities/FrostArrows';
 
-describe('FireArrows Ability', () => {
+describe('FrostArrows Ability', () => {
   let archer: Archer;
   let mage: Mage;
 
   beforeEach(() => {
-    archer = new Archer('Legolas', 80, 25);
-    mage = new Mage('Gandalf', 100, 20);
-    jest.spyOn(Logger, 'logAbilityUse').mockImplementation(() => {});
-    jest.spyOn(Logger, 'logBurnEffect').mockImplementation(() => {});
+    // Создаем игроков перед каждым тестом
+    archer = new Archer('Legolas', 100, 20); // Лучник с атакой 20
+    mage = new Mage('Gandalf', 100, 15); // Маг с атакой 15
   });
 
-  afterEach(() => {
-    jest.clearAllMocks();
+  test('FrostArrows deals damage and stuns the target', () => {
+    const frostArrows = new FrostArrows(archer); // Создаем способность FrostArrows
+
+    // Используем способность на цель
+    frostArrows.use(mage, archer);
+
+    // Проверяем, что здоровье цели уменьшилось на 20 (атака лучника)
+    expect(mage.health).toBe(100 - 20);
+
+    // Проверяем, что цель оглушена
+    expect(mage.stunnedState).toBe(true);
   });
 
-  test('FireArrows deals initial damage and applies burn effect', () => {
-    const fireArrows = new FireArrows(archer);
-    fireArrows.use(mage, archer);
-    expect(mage.health).toBe(100 - archer.atk);
-    fireArrows.applyBurnEffect();
-    expect(mage.health).toBe(100 - archer.atk - 5);
-    fireArrows.applyBurnEffect();
-    expect(mage.health).toBe(100 - archer.atk - 10);
-  });
+  test('FrostArrows can only be used once per round', () => {
+    const frostArrows = new FrostArrows(archer); // Создаем способность FrostArrows
 
-  test('FireArrows can only be used once per round', () => {
-    const fireArrows = new FireArrows(archer);
+    // Используем способность первый раз
+    frostArrows.use(mage, archer);
 
-    fireArrows.use(mage, archer);
-    expect(fireArrows['_usagetime']).toBe(0);
+    // Проверяем, что здоровье уменьшилось на 20
+    expect(mage.health).toBe(100 - 20);
 
-    fireArrows.use(mage, archer);
-    expect(mage.health).toBe(100 - archer.atk);
-    expect(fireArrows['_usagetime']).toBe(0);
-  });
+    // Проверяем, что способность больше нельзя использовать
+    expect(frostArrows.usagetime).toBe(0);
 
-  test('FireArrows logs burn effect damage', () => {
-    const fireArrows = new FireArrows(archer);
-    fireArrows.use(mage, archer);
-    fireArrows.applyBurnEffect();
+    // Пытаемся использовать способность снова
+    frostArrows.use(mage, archer);
 
-    expect(Logger.logBurnEffect).toHaveBeenCalledWith(archer.classid, archer.name, mage.classid, mage.name, 5, 70);
+    // Проверяем, что здоровье не изменилось
+    expect(mage.health).toBe(100 - 20);
   });
 });

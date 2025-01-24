@@ -2,7 +2,7 @@ import { PlayerClasses } from '../players/player';
 
 export class Logger {
   private static _abilityNames = ['Зачарование', 'Огненные стрелы', 'Удар возмездия'];
-  private static _classNames = ['Маг', 'Рыцарь', 'Лучник'];
+  private static _classNames = ['Маг', 'Лучник', 'Рыцарь'];
 
   public static logAttack(
     casterClass: PlayerClasses,

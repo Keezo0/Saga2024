@@ -1,6 +1,7 @@
 import { Player } from '../players/player';
 import { Attack } from '../abilities/attack';
 import { FireArrows } from '../abilities/FireArrows';
+import { Ability } from '../abilities/ability';
 
 import { PlayerGen } from './Factory';
 import { Logger } from './logger';
@@ -35,19 +36,15 @@ export class Game {
         this.players.reverse();
         continue;
       }
-
       const useSpecialAbility = Math.random() < 0.5;
+      const specialAbility = attacker.abilities.find(ability => ability.canUse());
 
-      if (useSpecialAbility) {
-        const specialAbility = attacker.abilities.find(ability => ability.canUse());
-        if (specialAbility) {
-          specialAbility.use(defender, attacker);
-          Logger.logAbilityUse(attacker.classid, attacker.name, defender.classid, defender.name, specialAbility.damage);
-
-          if (defender.health <= 0) {
-            console.log(`${defender.name} побежден!`);
-            return;
-          }
+      if (useSpecialAbility && specialAbility) {
+        specialAbility.use(defender, attacker);
+        Logger.logAbilityUse(attacker.classid, attacker.name, defender.classid, defender.name, specialAbility.damage);
+        if (defender.health <= 0) {
+          console.log(`${defender.name} побежден!`);
+          return;
         }
       } else {
         // Используем обычную атаку

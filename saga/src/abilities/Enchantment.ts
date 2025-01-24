@@ -12,11 +12,12 @@ export class Enchantment extends Ability {
   }
 
   public use(target: Player, caster: Player): void {
+    const usable: boolean = this.canUse();
     super.use(target, caster);
-    if (this.canUse()) {
-      const reducedDamage = Math.round(this._damage * 0.7);
-      target.useAbility(caster, this, reducedDamage);
-      target.setStunnedState(true);
+    if (usable) {
+      const reducedDamage = Math.round(this._damage * 0.7); // Уменьшенный урон
+      target.useAbility(caster, this, reducedDamage); // Применяем урон
+      target.setStunnedState(true); // Оглушаем цель
     }
   }
 }

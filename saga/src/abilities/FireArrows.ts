@@ -16,11 +16,11 @@ export class FireArrows extends Ability {
   }
 
   public use(target: Player, caster: Player): void {
+    const usable: boolean = this.canUse();
     super.use(target, caster);
-    if (this.canUse()) {
-      target.useAbility(caster, this, this._damage);
+    if (usable) {
+      target.useAbility(caster, this, this._damage); // Наносим начальный урон
       Logger.logAbilityUse(caster.classid, caster.name, target.classid, target.name, this._damage);
-
       this._burnTurns = 2;
       this._burnTarget = target;
       this._burnCaster = caster;
