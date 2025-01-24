@@ -8,8 +8,8 @@ export class Strike extends Ability {
 
   public use(target: Player, caster: Player): void {
     if (this._usagetime === 1) {
-      const newDamage = Math.round(this._damage * 0.3) + this._damage;
-      target.useAbility(caster, this, newDamage);
+      this._damage = Math.round(this._damage * 0.3) + this._damage; // Убедимся, что урон не отрицательный
+      target.useAbility(caster, this, this._damage);
       this._usagetime -= 1;
     }
   }

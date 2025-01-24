@@ -10,21 +10,15 @@ export class Logger {
     console.log(`${casterClassName} ${casterName} атаковал ${targetClassName} ${targetName} и нанес ${damage} урона.`);
   }
 
-  public static logAbilityUse(casterClass: playerClasses, casterName: string, abilityId: number, targetClass: playerClasses, targetName: string, damage: number): void {
+  public static logAbilityUse(casterClass: playerClasses, casterName: string, targetClass: playerClasses, targetName: string, damage: number): void {
     const casterClassName = this._classNames[casterClass];
     const targetClassName = this._classNames[targetClass];
-    const abilityName = this._abilityNames[abilityId];
+    const abilityName = this._abilityNames[casterClass];
     console.log(`${casterClassName} ${casterName} использовал способность "${abilityName}" на ${targetClassName} ${targetName} и нанес ${damage} урона.`);
   }
 
   public static logPlayerCreation(playerClass: playerClasses, playerName: string, health: number, atk: number): void {
     const className = this._classNames[playerClass];
     console.log(`Создан новый игрок: ${className} ${playerName} с ${health} здоровья и ${atk} атаки.`);
-  }
-
-  public static logStunnedState(playerClass: playerClasses, playerName: string, isStunned: boolean): void {
-    const className = this._classNames[playerClass];
-    const state = isStunned ? 'оглушен' : 'не оглушен';
-    console.log(`${className} ${playerName} теперь ${state}.`);
   }
 }

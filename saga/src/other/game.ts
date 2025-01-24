@@ -1,8 +1,7 @@
-import { Ability } from '../abilities/ability';
-import { Attack } from '../abilities/attack';
 import { Player, playerClasses } from '../players/player';
 import { PlayerGen } from './Factory';
 import { Logger } from './logger';
+import { Attack } from '../abilities/attack';
 
 export class Game {
   private players: Player[] = [];
@@ -29,13 +28,29 @@ export class Game {
   private startGame(): void {
     while (this.players.every(player => player.health > 0)) {
       const [attacker, defender] = this.players;
-      const damage = attacker.atk;
-      defender.useAbility(attacker, new Attack(attacker), damage);
-      Logger.logAttack(attacker.classid, attacker.name, defender.classid, defender.name, damage);
+
+      // Проверяем, должен ли атакующий пропустить ход
+      if (attacker.skipTurn()) {
+        this.players.reverse(); // Передаем ход следующему игроку
+        continue;
+      }
+
+      // Решаем, использовать ли особую способность (50% шанс)
+      const useSpecialAbility = Math.random() < 0.5;
+
+      if (useSpecialAbility) {
+        // Используем особую способность
+        attacker.useSpecialAbility(defender);
+        Logger.logAbilityUse(attacker.classid, attacker.name, defender.classid, defender.name, defender.health);
+      } else {
+        // Используем обычную атаку
+        const damage = attacker.atk;
+        defender.useAbility(attacker, new Attack(attacker), damage);
+        Logger.logAttack(attacker.classid, attacker.name, defender.classid, defender.name, damage);
+      }
 
       // Проверяем, жив ли защитник
       if (defender.health <= 0) {
-        Logger.logAttack(attacker.classid, attacker.name, defender.classid, defender.name, damage);
         console.log(`${defender.name} побежден!`);
         break;
       }

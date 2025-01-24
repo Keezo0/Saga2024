@@ -8,7 +8,7 @@ export enum playerClasses {
 
 export abstract class Player {
   protected _abilities: Ability[] = [];
-  protected _name: string;  
+  protected _name: string;
   protected _class: string;
   protected _classid: playerClasses;
   protected _health: number;
@@ -17,21 +17,42 @@ export abstract class Player {
 
   constructor(playerName: string, playerHealth: number, playerAtk: number) {
     this._name = playerName;
-    this._health = playerHealth;
-    this.atk = playerAtk;
+    this.health = playerHealth;
+    this._atk = playerAtk;
   }
 
   public useAbility(caster: Player, ability: Ability, damage: number) {
-    this._health = this.health - damage;
+    this.health = Math.max(0, this.health - damage); // Убедимся, что здоровье не станет отрицательным
   }
 
+  public abstract useSpecialAbility(target: Player): void;
 
-  protected set atk(atk: number) {
-    if (atk > 0 && atk <= 25) {
-      this._atk = atk;
-    } else {
-      throw new Error('attack is incorrect');
+  // Пропуск хода, если игрок оглушен
+  public skipTurn(): boolean {
+    if (this._stunnedState) {
+      console.log(`${this.name} пропускает ход из-за оглушения.`);
+      this._stunnedState = false; // Сбрасываем флаг после пропуска хода
+      return true;
     }
+    return false;
+  }
+
+  // Установка состояния оглушения
+  public setStunnedState(stunned: boolean): void {
+    this._stunnedState = stunned;
+  }
+
+  // Геттеры и сеттеры
+  public get stunnedState(): boolean {
+    return this._stunnedState;
+  }
+
+  public get health(): number {
+    return this._health;
+  }
+
+  protected set health(hp: number) {
+    this._health = Math.max(0, hp); // Убедимся, что здоровье не станет отрицательным
   }
 
   public get classid(): playerClasses {
@@ -47,10 +68,6 @@ export abstract class Player {
 
   public get class(): string {
     return this._class;
-  }
-
-  public get health(): number {
-    return this._health;
   }
 
   public get atk(): number {

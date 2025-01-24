@@ -1,11 +1,18 @@
+import { Enchantment } from '../abilities/Enchantment';
 import { Player, playerClasses } from './player';
 
 export class Mage extends Player {
-  protected _atk: number;
-  protected _classid = playerClasses.Mage;
-  protected _health: number;
-
   constructor(playerName: string, playerHealth: number, playerAtk: number) {
     super(playerName, playerHealth, playerAtk);
+    this._classid = playerClasses.Mage;
+    this._class = "Маг";
+    this._abilities.push(new Enchantment(this));
+  }
+
+  public useSpecialAbility(target: Player): void {
+    const ability = this._abilities.find(ability => ability instanceof Enchantment);
+    if (ability) {
+      ability.use(target, this);
+    }
   }
 }

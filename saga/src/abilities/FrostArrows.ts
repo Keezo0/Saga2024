@@ -9,7 +9,7 @@ export class FrostArrows extends Ability {
   public use(target: Player, caster: Player): void {
     if (this._usagetime === 1) {
       target.useAbility(caster, this, this.damage);
-      this._damage += 2;
+      target.setStunnedState(true); // Оглушаем цель
       this._usagetime -= 1;
     }
   }
