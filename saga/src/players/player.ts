@@ -42,14 +42,6 @@ export abstract class Player {
     this._stunnedState = stunned;
   }
 
-  public setUsedSpecialAbility(used: boolean): void {
-    this._usedSpecialAbility = used;
-  }
-
-  public hasUsedSpecialAbility(): boolean {
-    return this._usedSpecialAbility;
-  }
-
   public get stunnedState(): boolean {
     return this._stunnedState;
   }
