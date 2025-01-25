@@ -5,6 +5,7 @@ import { Logger } from '../other/logger';
 export class FireArrows extends Ability {
   protected _damage: number;
   protected _abilityid = AbilityClasses.FireArrows;
+  protected _usagetime: number;
   private _burnTurns: number = 0;
   private _burnTarget: Player | null = null;
   private _burnCaster: Player | null = null;
@@ -12,6 +13,7 @@ export class FireArrows extends Ability {
   constructor(caster: Player) {
     super(caster);
     this._damage = caster.atk;
+    this._usagetime = 1;
   }
 
   public use(target: Player, caster: Player): void {
@@ -22,6 +24,7 @@ export class FireArrows extends Ability {
       this._burnTurns = 2;
       this._burnTarget = target;
       this._burnCaster = caster;
+      this._usagetime = 0;
     }
   }
 
